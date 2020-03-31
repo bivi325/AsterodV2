@@ -17,6 +17,7 @@ var browserSync = require('browser-sync');
  */
 var PHASER_PATH = './node_modules/phaser/build/';
 var BUILD_PATH = './build';
+var DOCS_PATH = './docs'
 var SCRIPTS_PATH = BUILD_PATH + '/scripts';
 var SOURCE_PATH = './src';
 var STATIC_PATH = './static';
@@ -66,6 +67,11 @@ function cleanBuild() {
 function copyStatic() {
     return gulp.src(STATIC_PATH + '/**/*')
         .pipe(gulp.dest(BUILD_PATH));
+}
+
+function copyBuild() {
+    return gulp.src(BUILD_PATH + '/**/*')
+        .pipe(gulp.dest(DOCS_PATH));
 }
 
 /**
@@ -156,6 +162,7 @@ function serve() {
 
 gulp.task('cleanBuild', cleanBuild);
 gulp.task('copyStatic', ['cleanBuild'], copyStatic);
+gulp.task('copyBuild', copyBuild);
 gulp.task('copyPhaser', ['copyStatic'], copyPhaser);
 gulp.task('build', ['copyPhaser'], build);
 gulp.task('fastBuild', build);
